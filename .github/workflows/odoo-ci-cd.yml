@@ -141,14 +141,12 @@ jobs:
       - name: Get Docker instances
         id: docker_instances
         run: |
-          echo "Tags are: ${{ steps.lsghcr.outputs.tags }}"
-
-          tags="${{ steps.lsghcr.outputs.tags }}"
+          echo "Tag is: ${{github.event.number }}"
+          tag=${{github.event.number}}
           DOCKER_INSTANCES=""
-          for tag in $tags; do
-            name="odoo_${tag}"
-            url="http://${name}:8069"
-            DOCKER_INSTANCES+="${name}:${url},"
+          name="odoo_${tag}"
+          url="http://${name}:8069"
+          DOCKER_INSTANCES+="${name}:${url},"
           done
 
           # Remove trailing comma
